@@ -99,6 +99,17 @@ function je_ma_setup() {
 			'flex-height' => true,
 		)
 	);
+
+	/** 
+	 * Add support for Block Editor features.
+	 * 
+	 * @link https://developer.wordpress.org/block-editor/developers/themes/theme-support/
+	*/
+	add_theme_support( 'wp-block-styles' );
+	add_theme_support( 'responsive-embeds' ); 
+	
+	// Add support for full and wide align images.
+	add_theme_support( 'align-wide' );
 }
 add_action( 'after_setup_theme', 'je_ma_setup' );
 
@@ -146,6 +157,34 @@ function je_ma_scripts() {
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
+	
+	if ( 'post' === get_post_type() ) {
+        // Enqueue Animate on Scroll CSS file.
+        wp_enqueue_style( 
+			'aos-css', 
+			get_template_directory_uri() . '/css/aos.css', 
+			array(),
+			'2.3.1'
+		);
+
+        // Enqueue Animate on Scroll JS file.
+        wp_enqueue_script( 
+			'aos-js', 
+			get_template_directory_uri() . '/js/aos.js', 
+			array(), 
+			'2.3.1',
+			array( 'strategy' => 'defer')
+		);
+
+		// Enqueue Theme-specific JS file.
+		wp_enqueue_script(
+			'theme-js', 
+			get_template_directory_uri() . '/js/theme.js', 
+			array( 'aos-js' ), 
+			_S_VERSION,
+			array( 'strategy' => 'defer')
+		);
+    }
 }
 add_action( 'wp_enqueue_scripts', 'je_ma_scripts' );
 
