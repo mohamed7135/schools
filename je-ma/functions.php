@@ -188,6 +188,14 @@ function je_ma_scripts() {
 }
 add_action( 'wp_enqueue_scripts', 'je_ma_scripts' );
 
+function je_ma_change_staff_title_placeholder($title_placeholder, $post) {
+    if ($post->post_type === 'je-ma-staff') {
+        $title_placeholder = 'Add staff name';
+    }
+    return $title_placeholder;
+}
+add_filter('enter_title_here', 'je_ma_change_staff_title_placeholder', 10, 2);
+
 /**
  * Implement the Custom Header feature.
  */
