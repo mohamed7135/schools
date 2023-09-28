@@ -229,3 +229,23 @@ if ( defined( 'JETPACK__VERSION' ) ) {
 require get_template_directory() . '/inc/cpt-taxonomy.php';
 
 
+function je_ma_restrict_block_editor($allowed_block_types, $post) {
+    if ($post->post_type === 'je-ma-student') {
+        
+        $allowed_block_types = array(
+            'core/paragraph', 
+            'core/buttons',   
+        );
+    }
+    return $allowed_block_types;
+}
+add_filter('allowed_block_types', 'je_ma_restrict_block_editor', 10, 2);
+
+function je_ma_change_student_title_placeholder($title_placeholder) {
+    global $post;
+    if ($post->post_type === 'je-ma-student') {
+        $title_placeholder = 'Add Student Name';
+    }
+    return $title_placeholder;
+}
+add_filter('enter_title_here', 'je_ma_change_student_title_placeholder');
