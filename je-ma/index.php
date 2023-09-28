@@ -35,7 +35,7 @@ get_header();
 			?>
 			<div data-aos="fade-up">
 			<?php
-				// get_template_part( 'template-parts/content', get_post_type() );
+				get_template_part( 'template-parts/content', get_post_type() );
 				the_excerpt();
 			?>
 			</div>
