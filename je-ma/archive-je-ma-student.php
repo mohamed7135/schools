@@ -12,27 +12,54 @@ get_header();
 
 	<main id="primary" class="site-main">
 
-		<?php if ( have_posts() ) : ?>
+		<?php
+		$terms = get_terms( 
+			array(
+				'taxonomy' => 'je-ma-student-category',
+			) 
+		);
+		if ( $terms && ! is_wp_error( $terms ) ) {
+			foreach ( $terms as $term ) {
+		$args = array(
+			'post_type'      => 'je-ma-student',
+			'posts_per_page' => -1,
+			'orderby'        => 'title', 
+        	'order'          => 'ASC',   
+			'tax_query' 	 => array(
+				array(
+					'taxonomy' => 'je-ma-student-category',
+					'field'    => 'slug',
+					'terms'    => $term->slug,
+				)
+			),
+		);
+		
+		$query = new WP_Query( $args );
+
+		 if ( $query->have_posts() ) : 
+		 ?>
 
 			<header class="page-header">
-				<?php
-				the_archive_title( '<h1 class="page-title">', '</h1>' );
-				the_archive_description( '<div class="archive-description">', '</div>' );
-				?>
+				<h1>The Class</h1>			
 			</header><!-- .page-header -->
 
 			<?php
 			/* Start the Loop */
-			while ( have_posts() ) :
-				the_post();
+			while ( $query->have_posts() ) :
+				$query->the_post();
+				?>
 
-				/*
-				 * Include the Post-Type-specific template for the content.
-				 * If you want to override this in a child theme, then include a file
-				 * called content-___.php (where ___ is the Post Type name) and that will be used instead.
-				 */
-				get_template_part( 'template-parts/content', get_post_type() );
+				<article>
+					<a href="<?php the_permalink(); ?>">
+					<h2><?php the_title(); ?></h2>
+					<?php the_post_thumbnail('medium'); ?>
+					</a>
+					<?php the_excerpt(); ?>
+					<?php $category_link = get_term_link($term); // Get the category link
+					echo '<section><p>Specialty: <a href="' . esc_url($category_link) . '">' . esc_html($term->name) . '</a></p>'; ?>
+				</article>
 
+				<?php
 			endwhile;
 
 			the_posts_navigation();
@@ -41,7 +68,10 @@ get_header();
 
 			get_template_part( 'template-parts/content', 'none' );
 
+			wp_reset_postdata();
 		endif;
+		}
+		}
 		?>
 
 	</main><!-- #main -->

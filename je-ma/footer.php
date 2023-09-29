@@ -12,6 +12,11 @@
 ?>
 
 	<footer id="colophon" class="site-footer">
+		<div class="footer-menus">
+				<nav class="footer-navigation">
+					<?php wp_nav_menu( array('theme_location' => 'footer')); ?>
+				</nav>
+		</div><!-- .footer-menus -->
 		<div class="site-info">
 			<a href="<?php echo esc_url( __( 'https://wordpress.org/', 'je-ma' ) ); ?>">
 				<?php

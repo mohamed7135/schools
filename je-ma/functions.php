@@ -46,10 +46,14 @@ function je_ma_setup() {
 		*/
 	add_theme_support( 'post-thumbnails' );
 
+	// Custom Crop Size
+	add_image_size( 'student-image', 200, 300, true );
+
 	// This theme uses wp_nav_menu() in one location.
 	register_nav_menus(
 		array(
 			'menu-1' => esc_html__( 'Primary', 'je-ma' ),
+			'footer' => esc_html__( 'Footer', 'je-ma' ),
 		)
 	);
 
@@ -249,3 +253,24 @@ function je_ma_change_student_title_placeholder($title_placeholder) {
     return $title_placeholder;
 }
 add_filter('enter_title_here', 'je_ma_change_student_title_placeholder');
+
+// Modify the End of the Excerpt
+function je_ma_excerpt_more( $more ) {
+    // Check if we are on the 'je-ma-student' custom post type archive
+    if ( is_post_type_archive( 'je-ma-student' ) ) {
+        $more = '<br> <a href="'. esc_url( get_permalink() ) .'" class="read-more">Read more about the student...</a>';
+    }
+    return $more;
+}
+add_filter( 'excerpt_more', 'je_ma_excerpt_more' );
+
+// Modify Length of the Excerpt
+function je_ma_excerpt_length($length) {
+    // Check if we are on the 'je-ma-student' custom post type archive
+    if ( is_post_type_archive( 'je-ma-student' ) ) {
+        return 25;
+    }
+    // Default excerpt length for other pages
+    return $length;
+}
+add_filter('excerpt_length', 'je_ma_excerpt_length');
