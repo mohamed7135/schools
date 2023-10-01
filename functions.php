@@ -157,7 +157,7 @@ function je_ma_scripts() {
 	wp_style_add_data( 'je-ma-style', 'rtl', 'replace' );
 
 	wp_enqueue_script( 'je-ma-navigation', get_template_directory_uri() . '/js/navigation.js', array(), _S_VERSION, true );
-
+	
 	if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 		wp_enqueue_script( 'comment-reply' );
 	}
@@ -235,15 +235,26 @@ require get_template_directory() . '/inc/cpt-taxonomy.php';
 
 function je_ma_restrict_block_editor($allowed_block_types, $post) {
     if ($post->post_type === 'je-ma-student') {
-        
-        $allowed_block_types = array(
-            'core/paragraph', 
-            'core/buttons',   
-        );
+        $allowed_block_types = array();
     }
     return $allowed_block_types;
 }
 add_filter('allowed_block_types', 'je_ma_restrict_block_editor', 10, 2);
+
+function je_ma_template_lock_all($post, $post_type) {
+    if ($post_type === 'je-ma-student') {
+        return array(
+            'default' => 'core/paragraph', // Set the default block type.
+            'template' => array(
+                // Define a locked template for all block types.
+                array('core/paragraph'),
+                array('core/buttons'),
+            ),
+        );
+    }
+    return $post;
+}
+add_filter('block_editor_template_lock', 'je_ma_template_lock_all', 10, 2);
 
 function je_ma_change_student_title_placeholder($title_placeholder) {
     global $post;
@@ -254,9 +265,8 @@ function je_ma_change_student_title_placeholder($title_placeholder) {
 }
 add_filter('enter_title_here', 'je_ma_change_student_title_placeholder');
 
-// Modify the End of the Excerpt
+
 function je_ma_excerpt_more( $more ) {
-    // Check if we are on the 'je-ma-student' custom post type archive
     if ( is_post_type_archive( 'je-ma-student' ) ) {
         $more = '<br> <a href="'. esc_url( get_permalink() ) .'" class="read-more">Read more about the student...</a>';
     }
@@ -264,13 +274,15 @@ function je_ma_excerpt_more( $more ) {
 }
 add_filter( 'excerpt_more', 'je_ma_excerpt_more' );
 
-// Modify Length of the Excerpt
+
 function je_ma_excerpt_length($length) {
-    // Check if we are on the 'je-ma-student' custom post type archive
+   
     if ( is_post_type_archive( 'je-ma-student' ) ) {
         return 25;
     }
-    // Default excerpt length for other pages
+    
     return $length;
 }
 add_filter('excerpt_length', 'je_ma_excerpt_length');
+
+

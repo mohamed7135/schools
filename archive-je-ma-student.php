@@ -41,10 +41,10 @@ get_header();
 
 			<header class="page-header">
 				<h1>The Class</h1>			
-			</header><!-- .page-header -->
+			</header>
 
 			<?php
-			/* Start the Loop */
+			
 			while ( $query->have_posts() ) :
 				$query->the_post();
 				?>
@@ -52,10 +52,11 @@ get_header();
 				<article>
 					<a href="<?php the_permalink(); ?>">
 					<h2><?php the_title(); ?></h2>
-					<?php the_post_thumbnail('medium'); ?>
+					<?php the_post_thumbnail('medium', array('class' => 'student-thumbnail-class')); ?>
+
 					</a>
 					<?php the_excerpt(); ?>
-					<?php $category_link = get_term_link($term); // Get the category link
+					<?php $category_link = get_term_link($term); 
 					echo '<section><p>Specialty: <a href="' . esc_url($category_link) . '">' . esc_html($term->name) . '</a></p>'; ?>
 				</article>
 
@@ -74,7 +75,7 @@ get_header();
 		}
 		?>
 
-	</main><!-- #main -->
+	</main>
 
 <?php
 get_sidebar();

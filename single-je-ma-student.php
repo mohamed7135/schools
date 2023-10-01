@@ -10,30 +10,68 @@
 get_header();
 ?>
 
-	<main id="primary" class="site-main">
-
+<article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+	<header class="entry-header">
 		<?php
-		while ( have_posts() ) :
-			the_post();
+		the_title( '<h1 class="entry-title">', '</h1>' );
 
-			get_template_part( 'template-parts/content', get_post_type() );
+		if ( 'post' === get_post_type() ) :
+			?>
+			
+		<?php endif; ?>
+	</header>
 
-			the_post_navigation(
+	<?php
+	je_ma_post_thumbnail();
+	?>
+
+	<div class="entry-content">
+		<?php
+		the_content();
+
+		wp_link_pages(
+			array(
+				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'je-ma' ),
+				'after'  => '</div>',
+			)
+		);
+		$taxonomy_terms = get_the_terms( get_the_ID(), 'je-ma-student-category' );
+
+		if ( $taxonomy_terms && ! is_wp_error( $taxonomy_terms ) ) {
+			echo '<div class="taxonomy-terms">';
+			echo '<h2>Other Students in this Category</h2>';
+
+		
+			$student_query = new WP_Query(
 				array(
-					'prev_text' => '<span class="nav-subtitle">' . esc_html__( 'Previous:', 'je-ma' ) . '</span> <span class="nav-title">%title</span>',
-					'next_text' => '<span class="nav-subtitle">' . esc_html__( 'Next:', 'je-ma' ) . '</span> <span class="nav-title">%title</span>',
+					'post_type'      => 'je-ma-student', 
+					'tax_query'      => array(
+						array(
+							'taxonomy' => 'je-ma-student-category', 
+							'field'    => 'id',
+							'terms'    => wp_list_pluck( $taxonomy_terms, 'term_id' ),
+						),
+					),
+					'posts_per_page' => -1,
 				)
 			);
 
-			// If comments are open or we have at least one comment, load up the comment template.
-			if ( comments_open() || get_comments_number() ) :
-				comments_template();
+			if ( $student_query->have_posts() ) :
+				while ( $student_query->have_posts() ) :
+					$student_query->the_post();
+					?>
+					<div class="other-student">
+						<a href="<?php the_permalink(); ?>"><?php the_title(); ?></a>
+					</div>
+					<?php
+				endwhile;
+				wp_reset_postdata();
 			endif;
 
-		endwhile; // End of the loop.
+			echo '</div>';
+		}
 		?>
-
-	</main><!-- #main -->
+	</div>
 
 <?php
 get_sidebar();

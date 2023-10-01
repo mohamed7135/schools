@@ -86,7 +86,7 @@ main {
  * `article` contexts in Chrome, Firefox, and Safari.
  */
 h1 {
-	font-size: 2em;
+	font-size: 5em;
 	margin: 0.67em 0;
 }
 
@@ -620,15 +620,63 @@ textarea {
 --------------------------------------------------------------*/
 /* Navigation
 --------------------------------------------- */
+.site-title a:link,
+.site-title a:visited {
+	text-decoration: none;
+	color: #ff6600;
+	font-size: 24px;
+	font-weight: bold;
+	font-family: "Your Font", sans-serif;
+	text-align: center;
+	margin-top: 20px;
+}
+
 .main-navigation {
 	display: block;
 	width: 100%;
 }
 .main-navigation ul {
-	display: none;
+	display: flex;
 	list-style: none;
 	margin: 0;
 	padding-left: 0;
+	flex-direction: column;
+	align-items: center;
+	background-color: #fff;
+	border-radius: 5px;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+	font-family: Arial, sans-serif;
+	font-size: 16px;
+	transition: transform 0.3s ease;
+}
+.main-navigation ul li {
+	position: relative;
+}
+@media screen and (max-width: 37.5em) {
+	.main-navigation ul li ul {
+		display: none;
+		position: static;
+		box-shadow: none;
+	}
+}
+.main-navigation ul li:hover > ul, .main-navigation ul li.focus > ul {
+	display: block;
+	left: auto;
+}
+.main-navigation ul a {
+	display: block;
+	text-decoration: none;
+	color: #333;
+	padding: 10px 0;
+}
+.main-navigation ul a:hover, .main-navigation ul a.focus {
+	color: #3498db;
+}
+.main-navigation ul .current_page_item > a,
+.main-navigation ul .current-menu-item > a,
+.main-navigation ul .current_page_ancestor > a,
+.main-navigation ul .current-menu-ancestor > a {
+	font-weight: bold;
 }
 .main-navigation ul ul {
 	box-shadow: 0 3px 3px rgba(0, 0, 0, 0.2);
@@ -642,38 +690,24 @@ textarea {
 	left: -999em;
 	top: 0;
 }
-.main-navigation ul ul li:hover > ul, .main-navigation ul ul li.focus > ul {
-	display: block;
-	left: auto;
-}
 .main-navigation ul ul a {
 	width: 200px;
 }
-.main-navigation ul li:hover > ul,
-.main-navigation ul li.focus > ul {
-	left: auto;
+.main-navigation ul ul:hover > a, .main-navigation ul ul.focus > a {
+	color: #3498db;
+	text-decoration: underline;
 }
-.main-navigation li {
-	position: relative;
-}
-.main-navigation a {
-	display: block;
-	text-decoration: none;
-}
-/* Small menu. */
-.menu-toggle,
-.main-navigation.toggled ul {
-	display: block;
-}
-
 @media screen and (min-width: 37.5em) {
-	.menu-toggle {
+	.main-navigation .menu-toggle {
 		display: none;
 	}
 	.main-navigation ul {
 		display: flex;
+		flex-direction: row;
+		justify-content: space-evenly;
 	}
 }
+
 .site-main .comment-navigation,
 .site-main .posts-navigation,
 .site-main .post-navigation {
@@ -932,5 +966,165 @@ textarea {
 		margin-left: -150px;
 		margin-right: -150px;
 	}
+}
+.widget-area {
+	display: none;
+}
+
+#colophon.site-footer {
+	background-color: #333;
+	color: #fff;
+	padding: 20px;
+	text-align: center;
+	font-family: Arial, sans-serif;
+}
+#colophon.site-footer .footer-navigation {
+	margin-bottom: 20px;
+}
+#colophon.site-footer .footer-navigation ul {
+	list-style: none;
+	padding: 0;
+}
+#colophon.site-footer .footer-navigation ul li {
+	display: inline;
+	margin-right: 20px;
+}
+#colophon.site-footer .footer-navigation ul li a {
+	text-decoration: none;
+	color: #fff;
+	font-weight: bold;
+	font-size: 16px;
+}
+#colophon.site-footer .site-info {
+	font-size: 14px;
+}
+#colophon.site-footer .site-info a {
+	text-decoration: none;
+	color: #ff6600;
+	font-weight: bold;
+}
+#colophon.site-footer .site-info .sep {
+	color: #fff;
+	margin: 0 5px;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+	margin-bottom: 20px;
+}
+table thead {
+	background-color: #333;
+	color: #fff;
+}
+table thead th {
+	padding: 10px;
+	text-align: center;
+}
+table tbody tr:nth-child(odd) {
+	background-color: #f5f5f5;
+}
+table tbody tr td {
+	padding: 10px;
+}
+table tbody tr td:first-child {
+	font-weight: bold;
+}
+
+#primary {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+}
+#primary article {
+	margin-bottom: 20px;
+}
+#primary article a {
+	display: block;
+	text-decoration: none;
+}
+#primary article a img {
+	width: 50%;
+	display: block;
+	margin: 0 auto;
+}
+#primary article a h2 {
+	font-size: 24px;
+	margin-top: 10px;
+}
+#primary article p {
+	margin-top: 10px;
+}
+#primary article p a.read-more {
+	color: #3498db;
+	text-decoration: underline;
+}
+#primary article section p a {
+	color: #3498db;
+	text-decoration: none;
+}
+#primary article section p a:hover {
+	text-decoration: underline;
+}
+#primary .page-header h1 {
+	font-size: 36px;
+}
+
+.archive-je-ma-student.php {
+	width: 25%;
+	display: block;
+	margin: 0 auto;
+}
+
+.wp-block-cover__image-background {
+	max-width: 100%;
+	height: auto;
+}
+
+h2 {
+	font-size: 3rem;
+}
+h2 a {
+	text-decoration: none;
+}
+
+a.wp-block-button__link.wp-element-button {
+	display: inline-block;
+	padding: 10px 20px;
+	background-color: #1095c1;
+	color: #fff;
+	text-decoration: none;
+	font-size: 16px;
+	border-radius: 5px;
+	transition: background-color 0.3s ease-in-out;
+}
+
+a.wp-block-button__link.wp-element-button:hover {
+	background-color: #0079a8;
+}
+
+.taxonomy-terms {
+	text-align: center;
+}
+
+.taxonomy-terms h2 {
+	font-size: 24px;
+	margin-bottom: 20px;
+}
+
+.taxonomy-terms a {
+	text-decoration: none;
+	color: #3498db;
+	transition: color 0.3s ease-in-out;
+}
+
+.taxonomy-terms a:hover {
+	color: #207ab4;
+}
+
+.taxonomy-terms a:active,
+.taxonomy-terms a:focus {
+	color: #0e4c7c;
 }
 /*# sourceMappingURL=sass/style.css.map */

@@ -100,3 +100,204 @@ Nicolas Gallagher and Jonathan Neal https://necolas.github.io/normalize.css/
 /* Alignments
 --------------------------------------------- */
 @import "utilities/alignments";
+
+.widget-area {
+    display: none;
+}
+
+#colophon.site-footer {
+    background-color: #333; 
+    color: #fff; 
+    padding: 20px; 
+    text-align: center;
+    font-family: Arial, sans-serif;
+    
+    .footer-navigation {
+        margin-bottom: 20px; 
+
+        ul {
+            list-style: none;
+            padding: 0;
+            
+            li {
+                display: inline;
+                margin-right: 20px; 
+
+                a {
+                    text-decoration: none;
+                    color: #fff; 
+                    font-weight: bold;
+                    font-size: 16px;
+                }
+            }
+        }
+    }
+
+    .site-info {
+        font-size: 14px; 
+        
+        a {
+            text-decoration: none;
+            color: #ff6600; 
+            font-weight: bold;
+        }
+
+        .sep {
+            color: #fff; 
+            margin: 0 5px; 
+        }
+    }
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+
+    thead {
+        background-color: #333;
+        color: #fff;
+
+        th {
+            padding: 10px;
+            text-align: center;
+        }
+    }
+
+    tbody {
+        tr {
+            &:nth-child(odd) {
+                background-color: #f5f5f5;
+            }
+
+            td {
+                padding: 10px;
+
+                &:first-child {
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+}
+
+#primary {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+
+    article {
+        margin-bottom: 20px;
+      
+
+        a {
+            display: block;
+            text-decoration: none;
+
+            img {
+                width: 50%;
+                display: block;
+                margin: 0 auto;
+            }
+
+            h2 {
+                font-size: 24px;
+                margin-top: 10px;
+            }
+        }
+
+        p {
+            margin-top: 10px;
+            a.read-more {
+                color: #3498db; 
+                text-decoration: underline; 
+            }
+        }
+
+        section {
+            p {
+                a {
+                    color: #3498db; 
+                    text-decoration: none;
+
+                    &:hover {
+                        text-decoration: underline; 
+                    }
+                }
+            }
+        }
+    }
+
+    .page-header {
+        h1 {
+            font-size: 36px;
+        }
+    }
+}
+
+.archive-je-ma-student.php {
+	width: 25%;
+	display: block;
+	margin: 0 auto;
+}
+
+.wp-block-cover__image-background {
+    max-width: 100%; 
+    height: auto; 
+}
+
+h2 {
+    font-size: 3rem;
+   
+
+    a {
+        text-decoration: none; 
+       
+    }
+}
+
+a.wp-block-button__link.wp-element-button {
+	display: inline-block;
+	padding: 10px 20px; 
+	background-color: #1095c1;
+	color: #fff; 
+	text-decoration: none; 
+	font-size: 16px; 
+	border-radius: 5px; 
+	transition: background-color 0.3s ease-in-out;
+  }
+
+  a.wp-block-button__link.wp-element-button:hover {
+	background-color: #0079a8;
+  }
+  
+  
+.taxonomy-terms {
+	text-align: center;
+  }
+  
+  .taxonomy-terms h2 {
+	font-size: 24px;
+	margin-bottom: 20px;
+  }
+  
+ 
+  .taxonomy-terms a {
+	text-decoration: none; 
+	color: #3498db; 
+	transition: color 0.3s ease-in-out;
+  }
+  
+  
+  .taxonomy-terms a:hover {
+	color: #207ab4; 
+  }
+  
+ 
+  .taxonomy-terms a:active,
+  .taxonomy-terms a:focus {
+	color: #0e4c7c; 
+  }
+
+	
