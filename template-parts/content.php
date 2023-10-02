@@ -33,12 +33,10 @@
 
 	<div class="entry-content">
 		<?php
-		if ( is_single() ) {
+		if ( is_single() ) :
 			the_content();
-		} else {
-			the_excerpt();
-		}
-
+		endif;
+		
 		wp_link_pages(
 			array(
 				'before' => '<div class="page-links">' . esc_html__( 'Pages:', 'je-ma' ),
